@@ -1,0 +1,20 @@
+
+
+section{
+	width:90%;
+	margin:auto;
+	height: 65vh;
+	margin-top: 2%;
+}
+
+#stock{
+	width: 150%;
+}
+
+#otherstocks{
+	vertical-align: top;
+	float:right;
+	margin-right: 20%;
+	margin-top: 10%;
+	background: blue;
+}
