@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, session, abort
 from flask_socketio import SocketIO, send
 from markupsafe import escape
+from history import get_history
 
 
 CODES = ["GME"]
