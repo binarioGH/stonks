@@ -33,7 +33,7 @@
             <h3>Other Stocks</h3>
         </aside>
     </section>
-    <script type="text/javascript">
+   <script type="text/javascript">
     function getDate() {
         let today = new Date();
         return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ":" + today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
@@ -43,6 +43,7 @@
     let mychart = document.getElementById("chart").getContext("2d");
     let name = document.getElementById('stockname').innerText;
     Chart.defaults.global.defaultFontColor = 'white';
+    Chart.defaults.global.legend.display = 0;
     let chart = new Chart(mychart, {
         type: "line",
         data: {
@@ -54,7 +55,21 @@
 
             }]
 
+        },
+        options: {
+    		scales: {
+       		xAxes: [{
+       			display: false
+       		}]
+    	},
+    	tooltips: {
+        callbacks: {
+           label: function(tooltipItem) {
+                  return tooltipItem.yLabel;
+           }
         }
+    }
+}
     });
 
 
