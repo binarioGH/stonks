@@ -1,36 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-	<link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-	<title>{{code}} - Stonkey</title>
-</head>
-<body>
-	<header>
-		<div id="title" class="lined">
-			<h1>Stonkey!</h1>
-		</div>
-		<nav class="lined">
-			<ul>
-				<li>OwO</li>
-			</ul>
-		</nav>
-	</header>
-	<section>
-		<article class="lined">
-			<h2 id="stockname" style="opacity: 0;">{{code}}</h2>
-			<div class="container" id='stock'>
-				<canvas id="chart"></canvas>
-			</div>
-		</article>
-		<aside class="lined" id="otherstocks">
-			<h3>Other Stocks</h3>
-		</aside>
-	</section>
 
-	<script type="text/javascript" src="/static/js/stock_chart.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    <title>{{code}} - Stonkey</title>
+</head>
+
+<body>
+    <header>
+        <div id="title" class="lined">
+            <h1>Stonkey!</h1>
+        </div>
+        <nav class="lined">
+            <ul>
+                <li>OwO</li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <article class="lined">
+            <h2 id="stockname" style="opacity: 0;">{{code}}</h2>
+            <div class="container" id='stock'>
+                <canvas id="chart"></canvas>
+            </div>
+        </article>
+        <aside class="lined" id="otherstocks">
+            <h3>Other Stocks</h3>
+        </aside>
+    </section>
+    <script type="text/javascript">
+    function getDate() {
+        let today = new Date();
+        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ":" + today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
+    }
+
+
+    let mychart = document.getElementById("chart").getContext("2d");
+    let name = document.getElementById('stockname').innerText;
+    Chart.defaults.global.defaultFontColor = 'white';
+    let chart = new Chart(mychart, {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                label: name,
+                borderColor: "#ffff00",
+
+            }]
+
+        }
+    });
+
+
+
+    function ChangeValue(key, value, u_chart) {
+        u_chart.data["labels"].push(key);
+        u_chart.data["datasets"][0]["data"].push(value);
+        u_chart.update()
+    }
+    </script>
+    <script type="text/javascript" src="/static/js/updates.js"></script>
 </body>
+
 </html>

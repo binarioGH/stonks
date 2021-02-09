@@ -13,6 +13,30 @@ CODES = ["GME"]
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+def auth(session):
+	return True
+
+
+
+@socketio.on('message')
+def handleMessage(msg):
+	if auth(session):
+		command, *args = msg.split()
+		return_value = {"type": command, "data": {}}
+		if command == "history":
+			data = get_history(args[0])
+			return_value["data"] = data
+
+
+		elif command == "update":
+			value = get_current_value()
+			return_value["data"] = value
+
+		send(return_value)
+	else:
+		abort(404)
+
+
 
 @app.errorhandler(404)
 def not_found(*args, **kwargs):
@@ -20,12 +44,13 @@ def not_found(*args, **kwargs):
 
 @app.route("/stocks/<code>")
 def stock_table(code):
-	code = code.upper()
+	if auth(session):
+		code = code.upper()
+		if code in CODES:
+			return render_template("stock_table.html", code=code)
 
-	if code in CODES:
-		return render_template("stock_table.html", code=code)
-
-	abort(404)
+	else:
+		abort(404)
 
 
 

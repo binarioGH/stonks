@@ -79,4 +79,4 @@ def get_history(symbol, days=365):
     base_url = 'https://finance.yahoo.com'
     url = base_url + sub
     price_history = scrape_page(url, header)
-    print(price_history)
+    return price_history

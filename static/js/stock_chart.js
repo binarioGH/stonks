@@ -1,4 +1,9 @@
 
+function getDate(){
+	let today = new Date();
+	return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+":"+today.getHours()+"-"+today.getMinutes()+"-"+today.getSeconds();
+}
+
 
 let mychart = document.getElementById("chart").getContext("2d");
 let name = document.getElementById('stockname').innerText;
@@ -21,4 +26,8 @@ let chart = new Chart(mychart, {
 
 
 
-function ChangeValue(){}
+function ChangeValue(value, u_chart){
+	u_chart.data["labels"].push(getDate());
+	u_chart.data["datasets"][0]["data"].push(value);
+	u_chart.update()
+}
