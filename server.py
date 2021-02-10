@@ -1,8 +1,8 @@
 #-*-coding: utf-8-*-
-from flask import Flask, render_template, request, session, abort
+from flask import Flask, render_template, request, session, abort, url_for
 from flask_socketio import SocketIO, send
 from markupsafe import escape
-from history import get_history
+from stock import get_history, get_name, get_current_value
 
 
 CODES = ["GME"]
@@ -20,22 +20,30 @@ def auth(session):
 
 @socketio.on('message')
 def handleMessage(msg):
-	if auth(session):
-		command, *args = msg.split()
-		return_value = {"type": command, "data": {}}
-		if command == "history":
-			data = get_history(args[0])
-			return_value["data"] = data
+	try:
+		if auth(session):
+			command, *args = msg.split()
+			return_value = {"type": command, "data": {}}
+			if command == "history":
+				time = int(args[1])
+				data = get_history(args[0], time)
+				return_value["data"] = data
 
 
-		elif command == "update":
-			value = get_current_value()
-			return_value["data"] = value
+			elif command == "update":
+				value = get_current_value(args[0])
+				return_value["data"] = value
 
-		send(return_value)
-	else:
-		abort(404)
+			elif command == "name":
+				name = get_name(args[0])
 
+				return_value["data"] = name
+
+			send(return_value)
+		else:
+			send({"type": "unauth"})
+	except:			
+		send({"type": "error"})
 
 
 @app.errorhandler(404)

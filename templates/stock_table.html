@@ -14,20 +14,30 @@
 <body>
     <header>
         <div id="title" class="lined">
-            <h1>Stonkey!</h1>
+        	<img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined">
+        	<h1 class="lined">Stonkey!</h1>
         </div>
         <nav class="lined">
             <ul>
-                <li>OwO</li>
+                <li></li>
             </ul>
         </nav>
     </header>
     <section>
         <article class="lined">
-            <h2 id="stockname" style="opacity: 0;">{{code}}</h2>
+        	<div id="info">
+        		<h2 id="companyname"></h2>
+        		<h3 id="price" class="lined"></h3><h3 id="stockname" class="lined">{{code}}</h3>
+        	</div>
+            
             <div class="container" id='stock'>
                 <canvas id="chart"></canvas>
             </div>
+            <form>
+            	<input type="button" class="time" id="week" value="Last Week">
+            	<input type="button" class="time" id="month" value="Last Month">
+            	<input type="button" class="time" id="year" value="Last Year">
+            </form>
         </article>
         <aside class="lined" id="otherstocks">
             <h3>Other Stocks</h3>
@@ -44,6 +54,7 @@
     let name = document.getElementById('stockname').innerText;
     Chart.defaults.global.defaultFontColor = 'white';
     Chart.defaults.global.legend.display = 0;
+   
     let chart = new Chart(mychart, {
         type: "line",
         data: {

@@ -11,10 +11,30 @@ section{
 	width: 150%;
 }
 
+#info{
+	min-height: 5vh;
+	width: 80%;
+	margin-left:10%;
+}
+
+#stockname{
+	color:gray;
+	font-size: 80%;
+}
+
 #otherstocks{
 	vertical-align: top;
 	float:right;
 	margin-right: 20%;
 	margin-top: 10%;
-	background: blue;
+}
+
+.time{
+	padding: 5px;
+	margin: 2%;
+	font-family: sans-serif;
+	border-radius: 20px;
+	font-size: 90%;
+	color:white;
+	background:rgb(225,117,52);
 }

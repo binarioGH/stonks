@@ -80,3 +80,15 @@ def get_history(symbol, days=365):
     url = base_url + sub
     price_history = scrape_page(url, header)
     return price_history
+
+def get_current_value(symbol):
+    content = requests.get("https://finance.yahoo.com/quote/{}".format(symbol), headers=header_function("/quote/{}".format(symbol)))
+    soup = BeautifulSoup(content.text, "html.parser")
+    price = float(soup.find_all("span", {"Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})[0].text)
+    return price
+
+def get_name(symbol):
+    content = requests.get("https://finance.yahoo.com/quote/{}".format(symbol), headers=header_function("/quote/{}".format(symbol)))
+    soup = BeautifulSoup(content.text, "html.parser")
+    title = soup.find_all("h1", {"class": "D(ib) Fz(18px)"})[0].text
+    return title
