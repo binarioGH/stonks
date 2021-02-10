@@ -60,6 +60,10 @@ def stock_table(code):
 	else:
 		abort(404)
 
+@app.route("/login")
+def login():
+	return render_template("login.html")
+
 
 
 app.run()

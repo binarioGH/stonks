@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/staitc/apple-icon-60x60.png">
@@ -15,24 +14,22 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/staitc/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/staitc/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/staitc/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/staitc/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/staitc/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/staitc/android-icon-192x192.png">
+     <link rel="icon" type="image/png" sizes="32x32" href="/staitc/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/staitc/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/staitc/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/lost.css">
-    <title>Oops!!</title>
-
+	<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/login.css">
+	<title>STONKS! ~ Log in</title>
 </head>
-
 <body>
-    <header>
+	<header>
         <div id="title" class="lined">
-            <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
-            <h1 class="lined">Stonks!</h1>
+        	<img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
+        	<h1 class="lined">Stonks!</h1>
         </div>
         <nav class="lined">
             <ul>
@@ -40,13 +37,13 @@
             </ul>
         </nav>
     </header>
-    <section>
-        <article>
-            <h1 id="losttext">404</h1>
-            <span class="jump"></span>
-            <h2>I think you got lost.</h2>
-        </article>
-    </section>
+	<section>
+		<article id="background" class="lined">
+			<img src="/static/lorem.jpg">
+		</article>
+		<article id="loginform" class="lined">
+			
+		</article>
+	</section>
 </body>
-
 </html>

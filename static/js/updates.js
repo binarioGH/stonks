@@ -1,4 +1,4 @@
-let socket = io.connect("http://127.0.0.1:5000");
+let socket = io.connect(window.location.origin	);
 let symbol = document.getElementById("stockname").innerText;
 let comp_name = document.getElementById("companyname");
 let price = document.getElementById("price");
@@ -20,6 +20,7 @@ socket.on("message", function(data){
 		if(new_price != old_price){
 			ChangeValue(getDate(), new_price, chart);
 			price.innerText = "$" + parseFloat(new_price);
+			document.title = symbol + " STONKS! - $" + new_price;
 			old_price = new_price;
 		}	
 	}
@@ -42,9 +43,18 @@ setInterval(function(){
 	socket.send("update " + symbol);
 }, 3000);
 
+
+let today = document.getElementById("today");
 let week = document.getElementById("week");
 let month = document.getElementById('month');
 let year = document.getElementById("year");
+
+today.addEventListener("click", function(){
+	chart.data["labels"] = []
+    chart.data["datasets"][0]["data"] = []
+    chart.update()
+});
+
 
 week.addEventListener("click", function(){update_time_values(7)});
 month.addEventListener("click", function(){update_time_values(31)});

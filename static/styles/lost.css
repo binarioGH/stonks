@@ -1,0 +1,23 @@
+section{
+	width: 100%;
+	height: 85vh;
+}
+
+article{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+#losttext{
+	margin-top: 10%;
+	font-size: 600%;
+	vertical-align: middle;
+}
+
+h2{
+	font-size: 120%;
+	color: gray;
+}

@@ -39,11 +39,15 @@ header{
 	background: #1d1b1b;
 }
 
+.jump{
+	display: block;
+}
+
 #logo{
-	max-width: 80%;
-	max-height: 80%;
-	margin-top: 2%;
-	margin-left:2%;
+	max-width: 70%;
+	max-height: 70%;
+	margin-top: 3%;
+	margin-left:5%;
 	vertical-align: middle;
 }
 
@@ -51,12 +55,13 @@ header{
 	width:29%;
 	height: 100%;
 	vertical-align: top;
+	text-transform: uppercase;
 }
 
 
 #title h1{
 	vertical-align: middle;
-	font-size: 150%;
+	font-size: 180%;
 	font-weight: bold;
 	margin-top: 2%;
 	margin-left: 5%;
