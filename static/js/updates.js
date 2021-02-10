@@ -23,6 +23,9 @@ socket.on("message", function(data){
 			old_price = new_price;
 		}	
 	}
+	else{
+		window.location.location =  window.location.origin 
+	}
 });
 
 

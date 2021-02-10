@@ -5,7 +5,7 @@ from markupsafe import escape
 from stock import get_history, get_name, get_current_value
 
 
-CODES = ["GME"]
+#CODES = ["GME"]
 
 
 
@@ -54,8 +54,8 @@ def not_found(*args, **kwargs):
 def stock_table(code):
 	if auth(session):
 		code = code.upper()
-		if code in CODES:
-			return render_template("stock_table.html", code=code)
+		
+		return render_template("stock_table.html", code=code)
 
 	else:
 		abort(404)
