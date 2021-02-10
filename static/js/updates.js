@@ -2,21 +2,26 @@ let socket = io.connect("http://127.0.0.1:5000");
 let symbol = document.getElementById("stockname").innerText;
 let comp_name = document.getElementById("companyname");
 let price = document.getElementById("price");
+let old_price = 0;
+let new_price = 0;
 
 socket.on("message", function(data){
-	console.log(data)
 	if(data["type"] === "history"){
 		chart.data["labels"] = Object.keys(data["data"]).reverse();
 		chart.data["datasets"][0]["data"] = Object.values(data["data"]).reverse();
 		chart.update();
 	}
 	else if(data["type"] === "name"){
-		console.log(data["data"]);
 		comp_name.innerText = data["data"];
 	}
 	else if(data["type"] === "update"){
-		ChangeValue(data["data"][0], parseFloat(data["data"][1]), chart);
-		price.innerText = "$" + parseFloat(data["data"][1]);
+		new_price = data["data"]
+		//console.log(new_price)
+		if(new_price != old_price){
+			ChangeValue(getDate(), new_price, chart);
+			price.innerText = "$" + parseFloat(new_price);
+			old_price = new_price;
+		}	
 	}
 });
 
@@ -30,7 +35,9 @@ function update_time_values(time){
 
 update_time_values(7);
 socket.send("name "+ symbol);
-
+setInterval(function(){
+	socket.send("update " + symbol);
+}, 3000);
 
 let week = document.getElementById("week");
 let month = document.getElementById('month');

@@ -90,5 +90,5 @@ def get_current_value(symbol):
 def get_name(symbol):
     content = requests.get("https://finance.yahoo.com/quote/{}".format(symbol), headers=header_function("/quote/{}".format(symbol)))
     soup = BeautifulSoup(content.text, "html.parser")
-    title = soup.find_all("h1", {"class": "D(ib) Fz(18px)"})[0].text
+    title = soup.find_all("h1", {"class": "D(ib) Fz(18px)"})[0].text.split(".")[0]
     return title
