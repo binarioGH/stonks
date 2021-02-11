@@ -26,17 +26,6 @@
 	<title>STONKS! ~ Log in</title>
 </head>
 <body>
-	<header>
-        <div id="title" class="lined">
-        	<img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
-        	<h1 class="lined">Stonks!</h1>
-        </div>
-        <nav class="lined">
-            <ul>
-                <li></li>
-            </ul>
-        </nav>
-    </header>
 	<section>
 		<article id="backgroundlg" class="lined">
 			<div class="fade">
@@ -44,6 +33,7 @@
             <img src="{{url_for('static', filename='lorem.jpg')}}">
 		</article>
 		<article id="loginform" class="lined">
+            <img src="{{url_for('static', filename='logo.png')}}" id="logo">
             <h2>Log In to STONKS!</h2>
             <form>
                 <input type="text" name="user" id="user" placeholder="Username">
