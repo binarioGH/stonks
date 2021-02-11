@@ -1,20 +1,20 @@
 #-*-coding: utf-8-*-
-from flask import Flask, render_template, request, session, abort, url_for
+from flask import Flask, render_template, request, session, abort, url_for, redirect
 from flask_socketio import SocketIO, send
 from markupsafe import escape
 from stock import get_history, get_name, get_current_value
-
+from market import afterHours
 
 #CODES = ["GME"]
 
 
-
+CACHED_AFTER_HOURS = {}
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
 def auth(session):
-	return True
+	return False
 
 
 
@@ -31,7 +31,18 @@ def handleMessage(msg):
 
 
 			elif command == "update":
-				value = get_current_value(args[0])
+				if afterHours():
+					if args[0] in CACHE:
+						value = CACHE[args[0]]
+
+					else:
+						value = get_current_value(args[0])
+						CACHED_AFTER_HOURS[args[0]] = value
+
+				else:
+					if len(CACHED_AFTER_HOURS):
+						CACHED_AFTER_HOURS = {}
+					value = get_current_value(args[0])
 				return_value["data"] = value
 
 			elif command == "name":
@@ -50,6 +61,14 @@ def handleMessage(msg):
 def not_found(*args, **kwargs):
 	return render_template("not_found.html")
 
+
+@app.route("/")
+def home():
+	if auth(session):
+		return render_template("index.html")
+	else:
+		return redirect("login")
+
 @app.route("/stocks/<code>")
 def stock_table(code):
 	if auth(session):
@@ -62,7 +81,11 @@ def stock_table(code):
 
 @app.route("/login")
 def login():
-	return render_template("login.html")
+	if not auth(session):
+		return render_template("login.html")
+
+	else:
+		return redirect(url_for("home"))
 
 
 

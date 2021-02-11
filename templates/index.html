@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/staitc/apple-icon-60x60.png">
@@ -14,34 +15,32 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/staitc/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/staitc/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/staitc/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/staitc/android-icon-192x192.png">
-     <link rel="icon" type="image/png" sizes="32x32" href="/staitc/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/staitc/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/staitc/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/staitc/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/staitc/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-	<link rel="stylesheet" type="text/css" href="/static/styles/login.css">
-	<title>STONKS! ~ Log in</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/lost.css">
+    <title>Oops!!</title>
+
 </head>
+
 <body>
-	<section>
-		<article id="backgroundlg" class="lined">
-			<div class="fade">
-            </div>
-            <img src="{{url_for('static', filename='lorem.jpg')}}">
-		</article>
-		<article id="loginform" class="lined">
-            <img src="{{url_for('static', filename='logo.png')}}" id="logo">
-            <h2>Log In to STONKS!</h2>
-            <form>
-                <input type="text" name="user" id="user" placeholder="Username">
-                <input type="password" name="password" placeholder="Password">
-                <h3 class="subtext">Forgot your password? <a href="/restore">Click here</a></h3>
-                <input type="submit" value="Log In">
-            </form>
-		</article>
-	</section>
+    <header>
+        <div id="title" class="lined">
+            <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
+            <h1 class="lined">Stonks!</h1>
+        </div>
+        <nav class="lined">
+            <ul>
+                <li></li>
+            </ul>
+        </nav>
+        <h1>OwO</h1>
+    </header>
 </body>
+
 </html>

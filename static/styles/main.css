@@ -88,6 +88,17 @@ nav{
 	display:inline-block;
 }
 
+.subtext{
+	font-size: 80%;
+	color:gray;
+}
+.subtext a{
+	color:white;
+}
+.subtext a:visited{
+	color:white;
+}
+
 
 @media screen and (max-width: 740px){
 	#title{
