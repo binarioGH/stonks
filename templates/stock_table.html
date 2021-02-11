@@ -30,8 +30,8 @@
 <body>
     <header>
         <div id="title" class="lined">
-        	<img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
-        	<h1 class="lined">Stonks!</h1>
+        	<img src="{{url_for('static', filename='logo.png')}}" id="logo" onclick='window.location = window.location.origin' style="cursor: pointer; display: inline-grid;">
+        	<h1 style="display: inline-grid;">Stonks!</h1>
         </div>
         <nav class="lined">
             <ul>
@@ -40,10 +40,13 @@
         </nav>
     </header>
     <section>
-        <article class="lined">
+        <article id="mainchart" class="lined">
         	<div id="info">
         		<h2 id="companyname"></h2>
-        		<h3 id="price" class="lined"></h3><h3 id="stockname" class="lined">{{code}}</h3>
+                <div id="downinfo">
+                    <h4 id="price" class="lined"></h4><h3 id="stockname" class="lined">{{code}}</h3>
+                </div>
+        		
         	</div>
             
             <div class="container" id='stock'>
@@ -74,6 +77,8 @@
    
     let chart = new Chart(mychart, {
         type: "line",
+        responsive:true,
+        maintainAspectRatio: false,
         data: {
             labels: [],
             datasets: [{

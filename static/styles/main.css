@@ -78,3 +78,13 @@ nav{
 .lined{
 	display:inline-block;
 }
+
+
+@media screen and (max-width: 740px){
+	#title{
+		width: 100%;
+	}
+	nav{
+		width: 100%;
+	}
+}
