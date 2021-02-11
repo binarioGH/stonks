@@ -38,11 +38,18 @@
         </nav>
     </header>
 	<section>
-		<article id="background" class="lined">
-			<img src="/static/lorem.jpg">
+		<article id="backgroundlg" class="lined">
+			<div class="fade">
+            </div>
+            <img src="{{url_for('static', filename='lorem.jpg')}}">
 		</article>
 		<article id="loginform" class="lined">
-			
+            <h2>Log In to STONKS!</h2>
+            <form>
+                <input type="text" name="user" id="user" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" value="Log In">
+            </form>
 		</article>
 	</section>
 </body>

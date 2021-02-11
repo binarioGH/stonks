@@ -8,8 +8,55 @@ body{
 section{
 	width: 100%;
 	height: 100vh;
+	margin-top: 0;
 }
 
+article{
+	vertical-align: top;
+	min-width: 40%;
+	min-height: 40vh;
+}
 
-#background{
+#backgroundlg{
+	background:blue;
+	width:58.5%;
+	height: 84vh;
+	position: relative;
+}
+
+#backgroundlg img{
+	width: 100%;
+	height: 100%;
+	-webkit-transform: scaleX(-1);
+  	transform: scaleX(-1);
+}
+
+#loginform{
+	width: 40%;
+	height: 84vh;
+	text-align: center;
+}
+
+h2{
+	font-size: 150%;
+	margin-top: 10%;
+}
+
+#loginform input{
+	margin: auto;
+	margin-top:6%;
+	display: block;
+	border:1px solid white;
+	border-radius: 20px;
+	padding: 7px;
+	background: rgb(25, 25, 25, 0.5);
+	color:white;
+	font-family: sans-serif;
+}
+
+#loginform input[type="submit"]{
+	background: #e17534;
+	width: 30%;
+	border-radius: 12px;
+	border:1px solid #e17534;
 }

@@ -64,8 +64,10 @@ section{
 #otherstocks{
 	vertical-align: top;
 	float:right;
-	margin-right: 20%;
-	margin-top: 10%;
+	min-width: 39%;
+	max-width: 100%;
+	min-height: 80vh;
+	overflow-y: auto;
 }
 
 .time{
@@ -89,8 +91,9 @@ section{
 	#otherstocks{
 		float: inherit;
 		text-align: center;
-		width:80%;
-		margin-left:10%; 
+		width:90%;
+		margin-left:5%;
+		min-height: 40vh; 
 	}
 
 }
