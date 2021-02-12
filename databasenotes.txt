@@ -1,0 +1,17 @@
+
+
+Tables:
+
+-Users:
+	
+	-Username /varchar
+	-Email /varchar 
+	-Password /sha256 varchar
+	-License / varchar(25)
+	-Money / float
+
+-Shares
+	- id
+	-symbol / varchar 10
+	-b_price //bought price / float
+	-owner // varchar

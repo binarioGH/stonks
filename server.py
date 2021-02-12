@@ -8,19 +8,21 @@ from market import afterHours
 #CODES = ["GME"]
 
 
-CACHED_AFTER_HOURS = {}
+
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
 def auth(session):
-	return False
+	return True
+
+
 
 
 
 @socketio.on('message')
 def handleMessage(msg):
-	try:
+	if True:
 		if auth(session):
 			command, *args = msg.split()
 			return_value = {"type": command, "data": {}}
@@ -29,20 +31,8 @@ def handleMessage(msg):
 				data = get_history(args[0], time)
 				return_value["data"] = data
 
-
 			elif command == "update":
-				if afterHours():
-					if args[0] in CACHE:
-						value = CACHE[args[0]]
-
-					else:
-						value = get_current_value(args[0])
-						CACHED_AFTER_HOURS[args[0]] = value
-
-				else:
-					if len(CACHED_AFTER_HOURS):
-						CACHED_AFTER_HOURS = {}
-					value = get_current_value(args[0])
+				value = get_current_value(args[0])
 				return_value["data"] = value
 
 			elif command == "name":
@@ -53,7 +43,7 @@ def handleMessage(msg):
 			send(return_value)
 		else:
 			send({"type": "unauth"})
-	except:			
+	else:			
 		send({"type": "error"})
 
 
