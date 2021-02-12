@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, session, abort, url_for, redirect
 from flask_socketio import SocketIO, send
 from markupsafe import escape
-from stock import get_history, get_name, get_current_value
+from stock import *
 from market import afterHours
 
 #CODES = ["GME"]
@@ -39,6 +39,10 @@ def handleMessage(msg):
 				name = get_name(args[0])
 
 				return_value["data"] = name
+
+			elif command == "hotstocks":
+				stocks = get_hot_stocks()
+				return_value["data"] = stocks;
 
 			send(return_value)
 		else:

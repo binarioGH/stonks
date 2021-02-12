@@ -2,6 +2,7 @@ let socket = io.connect(window.location.origin	);
 let symbol = document.getElementById("stockname").innerText;
 let comp_name = document.getElementById("companyname");
 let price = document.getElementById("price");
+let hotlist = document.getElementById("hotul");
 let old_price = 0;
 let new_price = 0;
 
@@ -24,6 +25,13 @@ socket.on("message", function(data){
 			old_price = new_price;
 		}	
 	}
+	else if(data["type"] === "hotstocks"){
+		//<li class="hotstock"><a href="">OwO</a></li>
+		hotlist.innerHTML = "";
+		for(s of Object.keys(data["data"])){
+			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>"+ data["data"][s]["company"] +" ~ " + data["data"][s]["price"] + " ~ "+ data["data"][s]["change"] +"</a></li>\n"
+		}
+	}
 	else{
 		window.location.location =  window.location.origin 
 	}
@@ -39,6 +47,12 @@ function update_time_values(time){
 
 update_time_values(7);
 socket.send("name "+ symbol);
+socket.send("hotstocks");
+setInterval(function(){
+	socket.send("hotstocks");
+}, 120000);
+
+
 setInterval(function(){
 	socket.send("update " + symbol);
 }, 3000);
