@@ -156,7 +156,30 @@ section{
 
 
 .hotstock{
-	
+	margin-top: 3%;
+	margin-bottom: 3%;
+	padding-top: 5px;
+	padding-bottom: 5px; 
+	text-align: center;
+	background: #262626;
+}
+
+.hotstock:hover{
+	background: #424040;
+}
+
+.hotstock li{ padding: 0px; }
+
+.hotstock a{ 
+	margin: 0px; 
+	display: block; 
+	width: 100%; 
+	height: 100%;
+	color:white;
+	text-decoration: none;
+}
+.hotstock a:visited{
+	color:white;
 }
 
 
