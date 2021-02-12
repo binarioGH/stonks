@@ -92,3 +92,30 @@ def get_name(symbol):
     soup = BeautifulSoup(content.text, "html.parser")
     title = soup.find_all("h1", {"class": "D(ib) Fz(18px)"})[0].text.split(".")[0]
     return title
+
+
+def get_hot_stocks():
+    hot_stocks = {}
+    content = requests.get("https://money.cnn.com/data/hotstocks/")
+    soup = BeautifulSoup(content.text, "html.parser")
+
+    rows = soup.find_all("tr")
+    for row in rows:
+        if "Company" in row.text:
+            continue
+        bigboi = BeautifulSoup(str(row), "html.parser")
+
+        symbol = bigboi.find_all("a", {"class": "wsod_symbol"})[0].text
+        if symbol in hot_stocks:
+            continue
+
+        hot_stocks[symbol] = {"company": "", "price": 0.0, "change": "%"}
+
+        columns = bigboi.find_all("td")
+
+        hot_stocks[symbol]["company"] = columns[0].span.text
+        hot_stocks[symbol]["price"] = columns[1].span.text
+        hot_stocks[symbol]["change"] = columns[-1].span.text
+
+    return hot_stocks
+
