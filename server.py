@@ -14,7 +14,7 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 def auth(session):
-	return True
+	return False
 
 
 
@@ -56,12 +56,7 @@ def not_found(*args, **kwargs):
 	return render_template("not_found.html")
 
 
-@app.route("/")
-def home():
-	if auth(session):
-		return render_template("index.html")
-	else:
-		return redirect("login")
+
 
 @app.route("/stocks/<code>")
 def stock_table(code):
@@ -80,6 +75,15 @@ def login():
 
 	else:
 		return redirect(url_for("home"))
+
+
+@app.route("/")
+def landing():
+	if auth(session):
+		return render_template("logged.html")
+
+	else:
+		return render_template("landing.html")
 
 
 
