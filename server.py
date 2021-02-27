@@ -14,7 +14,7 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 def auth(session):
-	return False
+	return True
 
 
 
