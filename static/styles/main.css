@@ -19,15 +19,25 @@ nav ul{
 	height: 100%;
 	text-align: center;
 	margin: auto;
+	vertical-align: middle;
 }
 
 nav ul li{
-	vertical-align: bottom;
+	vertical-align: top;
 	width:25%;
 	padding: 5px;
 	margin-top: 5%;
 	margin-left: 4%;
+	height: 100%;
+	-webkit-transition: color 0.2s; /
+    transition: color 0.2s; 
+
 }
+
+nav ul li:hover{
+	color:rgb(227, 118, 51);
+}
+
 
 ul, ol{
 	list-style: none;
