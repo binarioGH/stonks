@@ -4,21 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/staitc/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/staitc/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/staitc/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/staitc/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/staitc/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/staitc/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/staitc/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/staitc/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/staitc/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/staitc/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/staitc/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/staitc/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -33,20 +18,23 @@
         <div id="title" class="lined">
             <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
             <input type="text" name="search" id='search' placeholder="Search" class="lined">
+            <input type="button" name="go" id='go' class="lined">
 
         </div>
         <nav class="lined">
              
             <ul class="lined">
-                <li>Portfolio</li>
-                <li>Messages</li>
-                <li>Account</li>
+                <li class='navli'>Portfolio</li>
+                <li class='navli'>Messages</li>
+                <li class='navli'>Account</li>
             </ul>
         </nav>
     </header>
     <section>
         <h1>LOGGED IN</h1>
     </section>
-</body>
 
+
+    <script type="text/javascript" src="/static/js/nav.js"></script>
+</body>
 </html>
