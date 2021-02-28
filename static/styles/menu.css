@@ -1,0 +1,40 @@
+#stocklist{
+	width: 60%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+aside{
+	vertical-align: top;
+	float: right;
+	width:25%;
+	display: inline-block;
+	height: 100%;
+	background: red;
+}
+
+#hotul{
+	float: left;
+	width:100%;
+	background: rgb(76, 58, 46);
+	height: 70vh;
+	overflow-y: auto;
+}
+
+#hotul li{
+	background: rgb(76, 58, 46);
+}
+
+#hotul li:hover{
+	background: rgb(129, 101, 77);
+}
+
+#stocklist h1{
+	width: 100%;
+	margin-bottom: 1%;
+	padding: 5px;
+	text-align: left;
+	background: rgb(76, 58, 46);
+	font-size: 180%;
+
+}

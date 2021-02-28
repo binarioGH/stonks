@@ -22,20 +22,21 @@ nav ul{
 	vertical-align: middle;
 }
 
-nav ul li{
-	vertical-align: top;
-	width:25%;
-	padding: 5px;
-	margin-top: 5%;
-	margin-left: 4%;
-	height: 100%;
-	-webkit-transition: color 0.2s; /
-    transition: color 0.2s; 
+.navli{
+	vertical-align: top !important;
+	width:25% !important;
+	padding: 5px !important;
+	margin-top: 5% !important;
+	margin-left: 4% !important;
+	height: 100% !important;
+	-webkit-transition: color 0.2s !important; 
+    transition: color 0.2s !important; 
+    display: inline-block !important;
 
 }
 
-nav ul li:hover{
-	color:rgb(227, 118, 51);
+.navli:hover{
+	color:rgb(227, 118, 51) !important;
 }
 
 
@@ -108,6 +109,7 @@ header{
 	vertical-align: bottom;
 
 }
+
 
 
 #title h1{
