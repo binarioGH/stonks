@@ -14,6 +14,19 @@ h1, h2, h3, h4, h5, h6, p, li{
 	color:white;
 }
 
+nav ul{
+	width:100%;
+	height: 100%;
+}
+
+nav ul li{
+	vertical-align: bottom;
+	width:25%;
+	padding: 5px;
+	background: red;
+	margin-top: 5%;
+}
+
 ul, ol{
 	list-style: none;
 	margin-left: auto;
@@ -24,6 +37,7 @@ li{
 	display: inline-block;
 	float:left;
 	margin-right: auto;
+	margin:auto;
 
 }
 
@@ -34,7 +48,7 @@ body{
 
 
 header{
-	height: 15vh;
+	min-height: 15vh;
 	background: rgb(76, 58, 46);
 }
 
@@ -52,11 +66,12 @@ header{
 
 
 #logo{
-	max-width: 70%;
-	max-height: 70%;
+	max-width: 8%;
+	max-height: 15%;
 	margin-top: 3%;
 	margin-left:5%;
 	vertical-align: middle;
+	vertical-align: bottom;
 }
 
 #title{
@@ -77,6 +92,8 @@ header{
 	font-family: sans-serif;
 	font-size: 110%;
 	color:gray;
+	margin-left: 5%;
+	vertical-align: bottom;
 
 }
 
@@ -140,8 +157,10 @@ nav{
 @media screen and (max-width: 740px){
 	#title{
 		width: 100%;
+		display: block;
 	}
 	nav{
+		display: block;
 		width: 100%;
 	}
 }
