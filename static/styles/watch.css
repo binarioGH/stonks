@@ -21,8 +21,7 @@ section{
 }
 
 #mainchart{
-	min-width:  60%;
-	max-width:  100%;
+	width: 60%;
 	overflow-x: auto;
 }
 
@@ -67,8 +66,7 @@ section{
 #otherstocks{
 	vertical-align: top;
 	float:right;
-	min-width: 39%;
-	max-width: 100%;
+	width:39%;
 	min-height: 80vh;
 	max-height: 80vh;
 	overflow-y: auto;
@@ -100,7 +98,7 @@ section{
 
 #buysell{
 	width:100%;
-	height: 25vh;
+	max-height: 25vh;
 	text-align: center;
 }
 
@@ -141,6 +139,9 @@ section{
 	overflow-x: hidden;
 	overflow-y:auto;
 }
+
+
+
 
 #buysell input[type="number"]{
 	width:10%;
@@ -187,6 +188,7 @@ section{
 
 	#mainchart{
 		width: 100%;
+		display: block;
 	}
 
 	#otherstocks{
@@ -194,7 +196,14 @@ section{
 		text-align: center;
 		width:90%;
 		margin-left:5%;
-		min-height: 40vh; 
+		min-height: 40vh;
+		display: block; 
 	}
 
+	#hotstocks{
+		margin:0;
+		margin-top: 3%;
+		margin-left: 5%;
+		width:90%;
+	}
 }
