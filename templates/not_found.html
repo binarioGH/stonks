@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/lost.css">
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Oops!!</title>
 
 </head>
@@ -15,11 +18,25 @@
     <header>
         <div id="title" class="lined">
             <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
-            <h1 class="lined">Stonks!</h1>
+            <div class="lined" style="vertical-align: middle; width: 70%;">
+                <div id="searchresult">
+                    <ul id='sresults'>
+                        
+                    </ul>
+                </div>
+                <input type="text" name="search" id='search' placeholder="Search" class="lined">
+                <button class="btn btn-secondary" type="button" id="go">
+                     <i class="fa fa-search"></i>
+                </button>
+            </div>
+            
+
         </div>
         <nav class="lined">
-            <ul>
-                <li></li>
+            <ul class="lined">
+                <li class='navli'>Portfolio</li>
+                <li class='navli'>Messages</li>
+                <li class='navli'>Account</li>
             </ul>
         </nav>
     </header>
@@ -30,6 +47,7 @@
             <h2>I think you got lost.</h2>
         </article>
     </section>
+    <script type="text/javascript" src="/static/js/nav.js"></script>
 </body>
 
 </html>
