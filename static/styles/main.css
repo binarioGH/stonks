@@ -24,10 +24,10 @@ nav ul{
 
 .navli{
 	vertical-align: top !important;
-	width:25% !important;
+	width:20% !important;
 	padding: 5px !important;
 	margin-top: 5% !important;
-	margin-left: 4% !important;
+	margin-left: 2% !important;
 	height: 100% !important;
 	-webkit-transition: color 0.2s !important; 
     transition: color 0.2s !important; 

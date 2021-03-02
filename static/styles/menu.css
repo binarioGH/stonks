@@ -7,10 +7,26 @@
 aside{
 	vertical-align: top;
 	float: right;
-	width:25%;
+	width:30%;
 	display: inline-block;
+	height: 120%;
+	background: rgb(73, 69, 66);
+	border-radius: 10px;
+	overflow-y: auto;
+}
+
+aside ul{
+	width: 100%;
 	height: 100%;
-	background: red;
+}
+
+.newsindex{
+	margin-top: 12%;
+	margin-left: 5%;
+	padding: 6px;
+	border-radius: 15px;
+	background: rgb(138, 129, 122);
+	display: table;
 }
 
 #hotul{
@@ -19,6 +35,7 @@ aside{
 	background: rgb(76, 58, 46);
 	height: 70vh;
 	overflow-y: auto;
+	border-radius: 5px;
 }
 
 #hotul li{
@@ -36,5 +53,6 @@ aside{
 	text-align: left;
 	background: rgb(76, 58, 46);
 	font-size: 180%;
+	border-radius: 5px;
 
 }
