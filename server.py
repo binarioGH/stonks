@@ -4,10 +4,13 @@ from flask_socketio import SocketIO, send
 from markupsafe import escape
 from stock import *
 from market import afterHours
-
+from json import loads
 #CODES = ["GME"]
 
+SYMBOLS = {}
 
+with open("symbols.json", "r") as f:
+	SYMBOLS = loads(f.read())
 
 
 app = Flask(__name__)
@@ -43,6 +46,9 @@ def handleMessage(msg):
 			elif command == "hotstocks":
 				stocks = get_hot_stocks()
 				return_value["data"] = stocks;
+
+			elif command == "symbols":
+				return_value["data"] = SYMBOLS
 
 			send(return_value)
 		else:

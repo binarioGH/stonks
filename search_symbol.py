@@ -19,7 +19,7 @@ class Searcher:
 	def search(self, string):
 		results = []
 		for entry in self.data:
-			if string.lower() in entry.lower():
+			if string.lower() in entry.lower() or string.lower() in self.data[entry].lower():
 				results.append([entry, self.data[entry]])
 
 		return results

@@ -136,7 +136,25 @@ header{
 	z-index: 4;
 }
 
+#sresults{
+	width:100%;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 
+.srchresult{
+	display: block;
+	width:100%;
+	font-size: 90%;
+	margin-top: 2%;
+	color:black;
+	padding: 2px;
+}
+
+.srchresult:hover{
+	background: rgba(244, 244, 244, 0.7);
+}
 
 
 #title h1{
