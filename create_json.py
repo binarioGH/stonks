@@ -21,5 +21,5 @@ with open("owo.csv", "r") as f:
 			DATA[desc] = symbol
 
 
-with open("symbol.json", "w") as f:
+with open("symbols.json", "w") as f:
 	f.write(dumps(DATA, indent=4))
