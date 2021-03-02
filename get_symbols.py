@@ -10,7 +10,7 @@ for resource in package.resources:
     if resource.descriptor['datahub']['type'] == 'derived/csv':
     	output = ""
     	for line in resource.read():
-    		output += ','.join(line)
+    		output += '~'.join(line)
     		output += "\n"
 
     	with open("owo.csv", "w") as f:
