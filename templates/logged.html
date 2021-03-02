@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/menu.css">
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+
     <title>STONKS!</title>
 
 </head>
@@ -18,7 +19,7 @@
         <div id="title" class="lined">
             <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
             <input type="text" name="search" id='search' placeholder="Search" class="lined">
-            <input type="button" name="go" id='go' class="lined">
+            <button id='go' class='lined'><i class="fa fa-search"></i></button>
 
         </div>
         <nav class="lined">

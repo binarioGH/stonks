@@ -79,7 +79,7 @@ header{
 
 
 #logo{
-	max-width: 8%;
+	max-width: 5%;
 	max-height: 15%;
 	margin-top: 3%;
 	margin-left:5%;
@@ -109,6 +109,20 @@ header{
 	vertical-align: bottom;
 
 }
+
+#go{
+  width: 5%;
+  padding: 15px;
+  border-radius: 20px;
+  background: #e17534;
+  color: white;
+  font-size: 17px;
+  vertical-align: middle;
+  margin-left: 2%;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
 
 
 
