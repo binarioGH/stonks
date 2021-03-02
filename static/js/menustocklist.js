@@ -7,7 +7,7 @@ socket.on("message", function(data){
 		//<li class="hotstock"><a href="">OwO</a></li>
 		hotlist.innerHTML = "";
 		for(s of Object.keys(data["data"])){
-			console.log(s)
+			//console.log(s)
 			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>"+ data["data"][s]["company"] +" ~ " + data["data"][s]["price"] + " ~ "+ data["data"][s]["change"] +"</a></li>\n"
 		}
 	}
@@ -15,6 +15,6 @@ socket.on("message", function(data){
 
 socket.send('hotstocks');
 setInterval(function(){
-	console.log("sending...");
+	//console.log("sending...");
 	socket.send('hotstocks');
 }, 3000);
