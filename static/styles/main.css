@@ -63,6 +63,7 @@ body{
 header{
 	min-height: 15vh;
 	background: rgb(76, 58, 46);
+	z-index: 3;
 }
 
 .jump{
@@ -85,6 +86,7 @@ header{
 	margin-left:5%;
 	vertical-align: middle;
 	vertical-align: bottom;
+	z-index: 5;
 }
 
 #title{
@@ -92,6 +94,7 @@ header{
 	height: 100%;
 	vertical-align: top;
 	text-transform: uppercase;
+	z-index: 4;
 }
 
 
@@ -107,20 +110,30 @@ header{
 	color:gray;
 	margin-left: 5%;
 	vertical-align: bottom;
+	z-index: 6;
 
 }
 
 #go{
-  width: 5%;
-  padding: 15px;
-  border-radius: 20px;
-  background: #e17534;
-  color: white;
-  font-size: 17px;
-  vertical-align: middle;
-  margin-left: 2%;
-  border-left: none; /* Prevent double borders */
-  cursor: pointer;
+	padding: 5px;
+  	border-radius: 20px;
+  	background: gray;
+  	color: white;
+  	font-size: 17px;
+  	vertical-align: middle;
+  	margin-left: 1%;
+  	border-left: none; /* Prevent double borders */
+	cursor: pointer;
+}
+
+#searchresult{
+	position: absolute;
+	margin-left: 2%;
+	margin-top: 2%;
+	width:21%;
+	height: 30%;
+	background: rgba(255, 255, 255, 0.5);
+	z-index: 4;
 }
 
 
@@ -183,6 +196,9 @@ nav{
 
 
 @media screen and (max-width: 740px){
+	#logo{
+		max-width:9%;
+	}
 	#title{
 		width: 100%;
 		display: block;
@@ -190,5 +206,10 @@ nav{
 	nav{
 		display: block;
 		width: 100%;
+	}
+	#searchresult{
+		width:44%;
+		margin-top: 9%;
+		margin-left:4%;
 	}
 }
