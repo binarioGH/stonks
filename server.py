@@ -80,7 +80,7 @@ def login():
 		return render_template("login.html")
 
 	else:
-		return redirect(url_for("home"))
+		return redirect(url_for("landing"))
 
 
 @app.route("/")
