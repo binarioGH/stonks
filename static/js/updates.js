@@ -7,7 +7,6 @@ let old_price = 0;
 let new_price = 0;
 
 socket.on("message", function(data){
-	console.log(data["data"].length);
 	if(data["type"] === "history"){
 		chart.data["labels"] = Object.keys(data["data"]).reverse();
 		chart.data["datasets"][0]["data"] = Object.values(data["data"]).reverse();
