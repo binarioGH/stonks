@@ -8,13 +8,17 @@ socket.on("message", function(data){
 		hotlist.innerHTML = "";
 		for(s of Object.keys(data["data"])){
 			//console.log(s)
-			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>"+ data["data"][s]["company"] +" ~ " + data["data"][s]["price"] + " ~ "+ data["data"][s]["change"] +"</a></li>\n"
+			let color;
+			if(data["data"][s]["change"][0] == "+"){
+				color = "rgb(105, 226, 56)";
+			}
+			else{
+				color = "rgb(255, 46, 25)";
+			}
+			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>" + data["data"][s]["company"] +" - <span style='color:"+color+"'>$" + data["data"][s]["price"]  +"</span></a></li>\n"
 		}
 	}
 });
 
 socket.send('hotstocks');
-setInterval(function(){
-	//console.log("sending...");
-	socket.send('hotstocks');
-}, 3000);
+
