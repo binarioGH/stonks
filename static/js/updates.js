@@ -37,7 +37,7 @@ socket.on("message", function(data){
 			else{
 				color = "rgb(255, 46, 25)";
 			}
-			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>" + data["data"][s]["company"] +" - <span style='color:"+color+"'>$" + data["data"][s]["price"]  +" ~ "+data["data"][s]["change"]+"</span></a></li>\n"
+			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>" + data["data"][s]["company"] +" - <span style='color:"+color+"'>$" + data["data"][s]["price"]  +"</span></a></li>\n";
 		}
 	}
 	else{
