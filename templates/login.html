@@ -18,7 +18,7 @@
 		<article id="loginform" class="lined">
             <img src="{{url_for('static', filename='logo.png')}}" id="logo">
             <h2>Log In to STONKS!</h2>
-            <form>
+            <form form action="/login" method="post">
                 <input type="text" name="user" id="user" placeholder="Username">
                 <input type="password" name="password" placeholder="Password">
                 <h3 class="subtext">Forgot your password? <a href="/restore">Click here</a></h3>

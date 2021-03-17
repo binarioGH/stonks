@@ -5,9 +5,23 @@ from markupsafe import escape
 from stock import *
 from market import afterHours
 from json import loads
+from mysql.connector import connect
+from hashlib import sha256
 #CODES = ["GME"]
 
+
+
+#stonks ~ select
+#KwoqBdeRrwnDgZ4o
+
+ACTIVE_COOKIES = {}
 SYMBOLS = {}
+
+TOOLS = {"sql": connect(host='127.0.0.1', user='stonks', password='KwoqBdeRrwnDgZ4o', database='stonks')}
+cursor = TOOLS["sql"].cursor()
+cursor.execute("SELECT username, password FROM users;")
+response = cursor.fetchall()
+print(response)
 
 with open("symbols.json", "r") as f:
 	SYMBOLS = loads(f.read())
@@ -16,8 +30,23 @@ with open("symbols.json", "r") as f:
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+
+def generate_cookie(user, password, ip):
+	ABC = "abcdefghijklmnopqrstuvwxyz1234567890"
+	cookie = ''
+	for i in range(0, randint(10, 21)):
+		letter = choice(ABC) 
+		if randint(0, 1):
+			letter = letter.upper()
+		cookie += letter
+	ACTIVE_COOKIES[cookie] = {"user": user, "password": password, "ip": ip}
+	return cookie
+
+
+
+
 def auth(session):
-	return True
+	return False
 
 
 
@@ -74,8 +103,27 @@ def stock_table(code):
 	else:
 		abort(404)
 
-@app.route("/login")
+@app.route("/login", methods=["POST", "GET"])
 def login():
+	if request.method == 'POST':
+		if "user" in request.form and "password" in request.form:
+			user = request.form["user"]
+			password = sha256(request.form["password"].encode()).hexdigest()
+			cursor = TOOLS["sql"].cursor()
+			query = "SELECT username, password FROM users WHERE username=%s;"
+			cursor.execute(query, (user,))
+			results = cursor.fetchall()
+			if len(results):
+				q_user, q_password = results[0]
+				if user == q_user and password == q_password:
+					print("Logged in!")
+			else:
+				return render_template("login.html")
+
+
+		else:
+			return render_template("login.html")
+
 	if not auth(session):
 		return render_template("login.html")
 
