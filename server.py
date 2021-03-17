@@ -7,6 +7,7 @@ from market import afterHours
 from json import loads
 from mysql.connector import connect
 from hashlib import sha256
+from random import randint, choice
 #CODES = ["GME"]
 
 
@@ -28,7 +29,18 @@ with open("symbols.json", "r") as f:
 
 
 app = Flask(__name__)
+app.secret_key = '''blocked_chars = ("<", ">", ";", "'", "SELECT", "UPDATE", "SET", "WHERE", '=')'''
 socketio = SocketIO(app)
+
+
+
+def sanitize(text):
+	blocked_chars = ("<", ">", ";", "'", "SELECT", "UPDATE", "SET", "WHERE", '=')
+	for blocked in blocked_chars:
+		if blocked.lower() in text or blocked.upper() in text:
+			return 0
+
+	return 1 
 
 
 def generate_cookie(user, password, ip):
@@ -46,8 +58,22 @@ def generate_cookie(user, password, ip):
 
 
 def auth(session):
-	return False
+	if (not "token" in session) or (not "user" in session) or (not "password" in session):
+		return False
+	token = session["token"]
+	
+	if not token in ACTIVE_COOKIES:
+		return False
+	if ACTIVE_COOKIES[token]["user"] != session["user"]:
+		return False
 
+	if ACTIVE_COOKIES[token]["password"] != session["password"]:
+		return False
+
+	if session["ip"] != ACTIVE_COOKIES[token]["ip"]:
+		return False
+
+	return True
 
 
 
@@ -116,19 +142,20 @@ def login():
 			if len(results):
 				q_user, q_password = results[0]
 				if user == q_user and password == q_password:
-					print("Logged in!")
-			else:
-				return render_template("login.html")
-
-
-		else:
-			return render_template("login.html")
+					token = generate_cookie(user, password, request.remote_addr)
+					session["token"] = token
+					session["user"] = user
+					session["password"] = password
+					session["ip"] = request.remote_addr
+					print(session)
+					print(ACTIVE_COOKIES)
+					return redirect(url_for("landing"))
+		
 
 	if not auth(session):
 		return render_template("login.html")
 
-	else:
-		return redirect(url_for("landing"))
+	return redirect(url_for("landing"))
 
 
 @app.route("/")
