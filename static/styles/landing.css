@@ -40,7 +40,7 @@ article{
 }
 
 
-@media screen and (max-width: 740px){
+@media screen and (max-width: 800 px){
 	section{
 		width:100%;
 	}
@@ -54,10 +54,12 @@ article{
 		width:100%;
 		display: block;
 		min-height: 20vh;
+		text-align: center;
 	}
 	#slogan h2{
 		width:80%;
 		margin-left: 10%;
 		margin-top: 20%;
+		text-align: initial;
 	}
 }

@@ -8,6 +8,7 @@ from json import loads
 from mysql.connector import connect
 from hashlib import sha256
 from random import randint, choice
+from validate_email import validate_email
 #CODES = ["GME"]
 
 
@@ -117,6 +118,26 @@ def not_found(*args, **kwargs):
 	return render_template("not_found.html")
 
 
+@app.route("/account")
+def account():
+	print("ralf")
+	if auth(session):
+		return render_template("account.html")
+	else:
+		return redirect(url_for("landing"))
+
+
+@app.route("/logout")
+def logout():
+	if auth(session):
+		del ACTIVE_COOKIES[session["token"]]
+		del session["user"]
+		del session["password"]
+		del session["ip"]
+		return render_template("login.html")
+
+	else:
+		return render_template("landing.html")
 
 
 @app.route("/stocks/<code>")

@@ -3,3 +3,5 @@ pandas
 lxml
 holidays
 datapackage
+py3-validate-email
+validate_email
