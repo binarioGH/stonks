@@ -1,4 +1,6 @@
 #-*-coding: utf-8-*-
+
+#Import libraries
 from flask import Flask, render_template, request, session, abort, url_for, redirect
 from flask_socketio import SocketIO, send
 from markupsafe import escape
@@ -8,34 +10,34 @@ from json import loads
 from mysql.connector import connect
 from hashlib import sha256
 from random import randint, choice
-from validate_email import validate_email
-#CODES = ["GME"]
 
 
 
 #stonks ~ select
 #KwoqBdeRrwnDgZ4o
 
-ACTIVE_COOKIES = {}
-SYMBOLS = {}
+ACTIVE_COOKIES = {} #Create list of active users
+SYMBOLS = {} #Cached symbols for not having to get the data everytime
 
+#Login into the sql database
 TOOLS = {"sql": connect(host='127.0.0.1', user='stonks', password='KwoqBdeRrwnDgZ4o', database='stonks')}
 cursor = TOOLS["sql"].cursor()
-cursor.execute("SELECT username, password FROM users;")
-response = cursor.fetchall()
-print(response)
+
+#cursor.execute("SELECT username, password FROM users;")
+#response = cursor.fetchall()
+#print(response)
 
 with open("symbols.json", "r") as f:
-	SYMBOLS = loads(f.read())
+	SYMBOLS = loads(f.read()) #Get list of symbols
 
 
 app = Flask(__name__)
 app.secret_key = '''blocked_chars = ("<", ">", ";", "'", "SELECT", "UPDATE", "SET", "WHERE", '=')'''
-socketio = SocketIO(app)
+socketio = SocketIO(app) #Create webscoket
 
 
 
-def sanitize(text):
+def sanitize(text): #Function to sanitize data to avoid sql injection and xss
 	blocked_chars = ("<", ">", ";", "'", "SELECT", "UPDATE", "SET", "WHERE", '=')
 	for blocked in blocked_chars:
 		if blocked.lower() in text or blocked.upper() in text:
@@ -44,7 +46,7 @@ def sanitize(text):
 	return 1 
 
 
-def generate_cookie(user, password, ip):
+def generate_cookie(user, password, ip): #Create unique identifier for each user
 	ABC = "abcdefghijklmnopqrstuvwxyz1234567890"
 	cookie = ''
 	for i in range(0, randint(10, 21)):
@@ -58,7 +60,7 @@ def generate_cookie(user, password, ip):
 
 
 
-def auth(session):
+def auth(session): #Check for any extrange behavior and correct login.
 	if (not "token" in session) or (not "user" in session) or (not "password" in session):
 		return False
 	token = session["token"]
@@ -80,30 +82,30 @@ def auth(session):
 
 
 @socketio.on('message')
-def handleMessage(msg):
-	if True:
-		if auth(session):
+def handleMessage(msg): #Handle web sockets
+	if True: #This is an if true for testing, i will change the condition later
+		if auth(session): #Check if the session is authentic
 			command, *args = msg.split()
-			return_value = {"type": command, "data": {}}
+			return_value = {"type": command, "data": {}} #Parse commands
 			if command == "history":
 				time = int(args[1])
 				data = get_history(args[0], time)
 				return_value["data"] = data
 
-			elif command == "update":
+			elif command == "update": #Send an update of the stock market
 				value = get_current_value(args[0])
 				return_value["data"] = value
 
-			elif command == "name":
+			elif command == "name": #Send iformation of a symbol
 				name = get_name(args[0])
 
 				return_value["data"] = name
 
-			elif command == "hotstocks":
+			elif command == "hotstocks": #Get a list of important stocks
 				stocks = get_hot_stocks()
 				return_value["data"] = stocks;
 
-			elif command == "symbols":
+			elif command == "symbols": #Get list of all symbols.
 				return_value["data"] = SYMBOLS
 
 			send(return_value)
@@ -115,19 +117,18 @@ def handleMessage(msg):
 
 @app.errorhandler(404)
 def not_found(*args, **kwargs):
-	return render_template("not_found.html")
+	return render_template("not_found.html") #Return not found page
 
 
 @app.route("/account")
 def account():
-	print("ralf")
 	if auth(session):
-		return render_template("account.html")
+		return render_template("account.html") #If the user already logged go to account
 	else:
-		return redirect(url_for("landing"))
+		return redirect(url_for("landing")) #else go to landing
 
 
-@app.route("/logout")
+@app.route("/logout") #logout user
 def logout():
 	if auth(session):
 		del ACTIVE_COOKIES[session["token"]]
@@ -141,7 +142,7 @@ def logout():
 
 
 @app.route("/stocks/<code>")
-def stock_table(code):
+def stock_table(code): #Get the information from any stock
 	if auth(session):
 		code = code.upper()
 		
@@ -151,7 +152,7 @@ def stock_table(code):
 		abort(404)
 
 @app.route("/login", methods=["POST", "GET"])
-def login():
+def login(): #Login into the webpage
 	if request.method == 'POST':
 		if "user" in request.form and "password" in request.form:
 			user = request.form["user"]
@@ -181,10 +182,10 @@ def login():
 
 @app.route("/")
 def landing():
-	if auth(session):
+	if auth(session): #If user is auth, go to logged.html
 		return render_template("logged.html")
 
-	else:
+	else: #Else go to landing
 		return render_template("landing.html")
 
 

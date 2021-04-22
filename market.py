@@ -1,5 +1,6 @@
 import datetime, pytz, holidays
 
+#Check if the stock market is open or closed
 tz = pytz.timezone('US/Eastern')
 us_holidays = holidays.US()
 def afterHours(now = None):

@@ -94,8 +94,8 @@ def get_name(symbol):
     return title
 
 
-def get_hot_stocks():
-    hot_stocks = {}
+def get_hot_stocks(): #Go to cnn to check what are the most important stocks
+    hot_stocks = {} #Crete dictionary to store the stocks
     content = requests.get("https://money.cnn.com/data/hotstocks/")
     soup = BeautifulSoup(content.text, "html.parser")
 
