@@ -1,3 +1,8 @@
+mysql
+mysqlclient
+mysql-connector-python
+pymysql
+MySQL-python
 Flask
 pandas
 lxml
