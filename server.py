@@ -89,17 +89,31 @@ def handleMessage(msg): #Handle web sockets
 			return_value = {"type": command, "data": {}} #Parse commands
 			if command == "history":
 				time = int(args[1])
-				data = get_history(args[0], time)
-				return_value["data"] = data
+				try:
+					data = get_history(args[0], time)
+				except:
+					return_value['type'] = 'redirect'
+					return_value['data'] = {}
+				else:
+					return_value["data"] = data
 
 			elif command == "update": #Send an update of the stock market
-				value = get_current_value(args[0])
-				return_value["data"] = value
+				try:
+					value = get_current_value(args[0])
+				except:
+					return_value['type'] = 'redirect'
+					return_value['data'] = {}
+				else:
+					return_value["data"] = value
 
 			elif command == "name": #Send iformation of a symbol
-				name = get_name(args[0])
-
-				return_value["data"] = name
+				try:
+					name = get_name(args[0])
+				except:
+					return_value['type'] = 'redirect'
+					return_value['data'] = {}
+				else:
+					return_value["data"] = name
 
 			elif command == "hotstocks": #Get a list of important stocks
 				stocks = get_hot_stocks()
@@ -150,6 +164,14 @@ def stock_table(code): #Get the information from any stock
 
 	else:
 		abort(404)
+
+@app.route("/buy")
+def buy():
+	if request.method == 'POST':
+		print(request.form)
+
+	else:
+		return redirect(url_for("landing"))
 
 @app.route("/login", methods=["POST", "GET"])
 def login(): #Login into the webpage

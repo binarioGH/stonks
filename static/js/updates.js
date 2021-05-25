@@ -40,6 +40,9 @@ socket.on("message", function(data){
 			hotlist.innerHTML += "<li class='hotstock'><a href='/stocks/"+s+"'>" + data["data"][s]["company"] +" - <span style='color:"+color+"'>$" + data["data"][s]["price"]  +"</span></a></li>\n";
 		}
 	}
+	else if(data['type'] === 'redirect'){
+		window.location.href = '/';
+	}
 	else{
 		window.location.location =  window.location.origin 
 	}

@@ -42,6 +42,7 @@ aside ul{
     -ms-transition: background-color 100ms linear;
     transition: background-color 100ms linear;
     padding-top: 10px;
+    cursor: pointer;
 }
 
 #gainers{

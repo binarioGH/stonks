@@ -61,11 +61,14 @@
         </article>
         <aside class="lined" id="otherstocks">
             <div id="buysell">
-                <form>
-                    <input type="number" id="buyshare" placeholder="0" />
+                <form action='/buy' method="post">
+                    <input type="number" id="buyshare" name='buyquantity' placeholder="0" />
+                    <input style='display:none' name='stock' value="{{code}}" id='xss'>
                     <button id="buy" class="moveshare">Buy share!</button>
-                    <br/>
-                    <input type="number" name="sellshare" placeholder="0"/>
+                </form>
+                <form action='/sell' method="post">
+                    <input type="number" id="sellshare" name='sellshare' placeholder="0"/>
+                    <input style='display:none' name='stock' value="{{code}}">
                     <button id="sell" class="moveshare" >Sell Share!</button>
                 </form>
             </div>
