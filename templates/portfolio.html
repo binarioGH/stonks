@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/portfolio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+	<title>Portfolio</title>
+</head>
+<body>
+	<header>
+        <div id="title" class="lined">
+            <img src="{{url_for('static', filename='logo.png')}}" id="logo" class="lined" onclick='window.location = window.location.origin' style="cursor: pointer;">
+            <div class="lined" style="vertical-align: middle; width: 70%;">
+                <div id="searchresult">
+                    <ul id='sresults'>
+                        
+                    </ul>
+                </div>
+                <input type="text" name="search" id='search' placeholder="Search" class="lined">
+                <button class="btn btn-secondary" type="button" id="go">
+                     <i class="fa fa-search"></i>
+                </button>
+            </div>
+            
+
+        </div>
+        <nav class="lined">
+            <ul class="lined">
+                <li class='navli'>Portfolio</li>
+                <li class='navli'>Messages</li>
+                <li class='navli'>Account</li>
+            </ul>
+        </nav>
+    </header>
+    <section id='portfoliocontainer'>
+    	<article id='profit'>
+    		<div class="lined moneyholder">
+    			<span class='teller'>Total investment</span>
+    			<span class='teller moneytell'>${{total_invested}}</span>
+    		</div>
+    		<div class="lined moneyholder">
+    			<span class='teller'>Current value</span>
+    			<span class='teller moneytell' >${{current_value}}</span>
+    		</div>
+    	</article>
+    	<article id='portfolio'>
+    		{% for item in portfolio %}
+    			<div class='portfolioitem'>
+    				<div class="stockinformation lined">
+    					<div>
+    						<span class='stockname'>{{item['name']}}</span>
+    						<span class='stocksymbol'>{{item['symbol']}}</span>
+    					</div>
+    					<div>
+    						<span class="price">Bought price: {{item['boughtprice']}} QTY: {{item['quantity']}}</span>
+    					</div>
+    					
+    				</div>
+    				<div class='sell lined'>
+    				<form action='/sell' method="post">
+                   		 <input type="number" class="sellshare" name='sellshare' placeholder="0"/>
+                   		 <input style='display:none' name='stock' value="{{item['symbol']}}">
+                   		 <button class="moveshare" >Sell Share!</button>
+                	</form>
+    			</div>
+    			</div>
+    			
+
+    		{% endfor %}
+    	</article>
+    </section>
+     <script type="text/javascript" src="/static/js/nav.js"></script>
+</body>
+</html>

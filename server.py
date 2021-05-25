@@ -213,6 +213,33 @@ def buy():
 	else:
 		return redirect(url_for("landing"))
 
+
+@app.route("/sell", methods=["POST"])
+def sell():
+	if auth(session):
+		if not request.form['buyquantity'].isnumeric():
+			pass
+		else:
+			pass
+		
+		return redirect("/stocks/{}".format(request.form['stock']))
+
+
+
+	else:
+		return redirect(url_for("landing"))
+
+
+
+@app.route("/portfolio")
+def portfolio():
+	if auth(session):
+		portfolio = [{'symbol': 'GME', "boughtprice": 1, "quantity": 10000, 'name': get_name('GME')}]
+		return render_template("portfolio.html", total_invested=10, current_value=100, portfolio = portfolio)
+
+	else:
+		return redirect(url_for("landing"))
+
 @app.route("/login", methods=["POST", "GET"])
 def login(): #Login into the webpage
 	if request.method == 'POST':

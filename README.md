@@ -19,3 +19,10 @@ import `stonks.sql` into a database.
 - [ ] Login with google.
 - [ ] Buy and sell.
 - [ ] Realtime data improvements.
+
+
+### KNOWN PROBLEMS
+
+- Usernames have to be unique.
+- Auth is weak.
+- Vulns?
