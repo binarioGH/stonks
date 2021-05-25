@@ -10,7 +10,9 @@ from json import loads
 from mysql.connector import connect
 from hashlib import sha256
 from random import randint, choice
-
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 
 #stonks ~ select
@@ -20,7 +22,7 @@ ACTIVE_COOKIES = {} #Create list of active users
 SYMBOLS = {} #Cached symbols for not having to get the data everytime
 
 #Login into the sql database
-TOOLS = {"sql": connect(host='127.0.0.1', user='stonks', password='KwoqBdeRrwnDgZ4o', database='stonks')}
+TOOLS = {"sql": connect(host='127.0.0.1', user='root', password='', database='stonks')}
 cursor = TOOLS["sql"].cursor()
 
 #cursor.execute("SELECT username, password FROM users;")
@@ -46,7 +48,7 @@ def sanitize(text): #Function to sanitize data to avoid sql injection and xss
 	return 1 
 
 
-def generate_cookie(user, password, ip): #Create unique identifier for each user
+def generate_cookie(user, ip): #Create unique identifier for each user
 	ABC = "abcdefghijklmnopqrstuvwxyz1234567890"
 	cookie = ''
 	for i in range(0, randint(10, 21)):
@@ -54,7 +56,7 @@ def generate_cookie(user, password, ip): #Create unique identifier for each user
 		if randint(0, 1):
 			letter = letter.upper()
 		cookie += letter
-	ACTIVE_COOKIES[cookie] = {"user": user, "password": password, "ip": ip}
+	ACTIVE_COOKIES[cookie] = {"user": user, "ip": ip}
 	return cookie
 
 
@@ -70,8 +72,8 @@ def auth(session): #Check for any extrange behavior and correct login.
 	if ACTIVE_COOKIES[token]["user"] != session["user"]:
 		return False
 
-	if ACTIVE_COOKIES[token]["password"] != session["password"]:
-		return False
+	#if ACTIVE_COOKIES[token]["password"] != session["password"]:
+	#	return False
 
 	if session["ip"] != ACTIVE_COOKIES[token]["ip"]:
 		return False
@@ -147,7 +149,7 @@ def logout():
 	if auth(session):
 		del ACTIVE_COOKIES[session["token"]]
 		del session["user"]
-		del session["password"]
+		#del session["password"]
 		del session["ip"]
 		return render_template("login.html")
 
@@ -165,10 +167,22 @@ def stock_table(code): #Get the information from any stock
 	else:
 		abort(404)
 
-@app.route("/buy")
+@app.route("/buy", methods=["POST"])
 def buy():
-	if request.method == 'POST':
-		print(request.form)
+	if auth(session):
+		if not request.form['buyquantity'].isnumeric():
+			pass
+		else:
+			query = 'INSERT INTO `transactions` (`owner`, `originalprice`, `quantity`) VALUES (%s, %s, %s)'
+			bought_quantity = int(request.form['buyquantity']) 
+			original_price = get_current_value(request.form['stock']) * bought_quantity
+			owner = ACTIVE_COOKIES[session['token']]['user']
+			cursor = TOOLS["sql"].cursor()
+			cursor.execute(query, (owner, original_price, bought_quantity))
+			TOOLS["sql"].commit()
+
+
+		return redirect("/stocks/{}".format(request.form['stock']))
 
 	else:
 		return redirect(url_for("landing"))
@@ -186,10 +200,10 @@ def login(): #Login into the webpage
 			if len(results):
 				q_user, q_password = results[0]
 				if user == q_user and password == q_password:
-					token = generate_cookie(user, password, request.remote_addr)
+					token = generate_cookie(user, request.remote_addr)
 					session["token"] = token
 					session["user"] = user
-					session["password"] = password
+					#session["password"] = "HAHA! there is no passwords stored in the cookies, dumbass"
 					session["ip"] = request.remote_addr
 					print(session)
 					print(ACTIVE_COOKIES)
