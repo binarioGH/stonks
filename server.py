@@ -139,7 +139,16 @@ def not_found(*args, **kwargs):
 @app.route("/account")
 def account():
 	if auth(session):
-		return render_template("account.html") #If the user already logged go to account
+		cursor = TOOLS["sql"].cursor()
+		query = 'SELECT money FROM users WHERE username=%s'
+
+		user = ACTIVE_COOKIES[session['token']]['user']
+
+		cursor.execute(query, (user,))
+
+		money = cursor.fetchall()[0][0]
+
+		return render_template("account.html",user=user, money=money) #If the user already logged go to account
 	else:
 		return redirect(url_for("landing")) #else go to landing
 
