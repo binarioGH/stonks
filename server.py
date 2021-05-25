@@ -234,7 +234,27 @@ def sell():
 @app.route("/portfolio")
 def portfolio():
 	if auth(session):
-		portfolio = [{'symbol': 'GME', "boughtprice": 1, "quantity": 10000, 'name': get_name('GME')}]
+
+		portfolio = []#[{'symbol': 'GME', "boughtprice": 1, "quantity": 10000, 'name': get_name('GME'), 'date': date }]
+
+
+		cursor = TOOLS["sql"].cursor()
+		query = "SELECT symbol, originalprice, quantity, purchase_date FROM transactions WHERE owner=%s"
+		user = ACTIVE_COOKIES[session['token']]['user']
+
+		cursor.execute(query, (user,))
+		portfolio_items = cursor.fetchall()
+		for item in portfolio_items:
+			data = {}
+			data['symbol'] = item[0]
+			data['boughtprice'] =  item[1]
+			data['quantity'] = item[2]
+			data['date'] = item[3]
+			data['name'] = get_name(data['symbol'])
+
+			portfolio.append(data)
+
+
 		return render_template("portfolio.html", total_invested=10, current_value=100, portfolio = portfolio)
 
 	else:

@@ -50,7 +50,8 @@
     	<article id='portfolio'>
     		{% for item in portfolio %}
     			<div class='portfolioitem'>
-    				<div class="stockinformation lined">
+    				{%set symbol = item['symbol']%}
+    				<div class="stockinformation lined" style='cursor:pointer' onclick='goto("{{symbol}}")'>
     					<div>
     						<span class='stockname'>{{item['name']}}</span>
     						<span class='stocksymbol'>{{item['symbol']}}</span>
@@ -74,5 +75,11 @@
     	</article>
     </section>
      <script type="text/javascript" src="/static/js/nav.js"></script>
+     <script type="text/javascript">
+     	function goto(symbol){
+     		console.log(symbol); 
+     		window.location.href = window.location.origin + '/stocks/' + symbol
+     	}
+     </script>
 </body>
 </html>
