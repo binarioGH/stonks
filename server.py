@@ -63,7 +63,7 @@ def generate_cookie(user, ip): #Create unique identifier for each user
 
 
 def auth(session): #Check for any extrange behavior and correct login.
-	if (not "token" in session) or (not "user" in session) or (not "password" in session):
+	if (not "token" in session) or (not "user" in session):
 		return False
 	token = session["token"]
 	
@@ -173,12 +173,29 @@ def buy():
 		if not request.form['buyquantity'].isnumeric():
 			pass
 		else:
-			query = 'INSERT INTO `transactions` (`owner`, `originalprice`, `quantity`) VALUES (%s, %s, %s)'
+			query = 'INSERT INTO `transactions` (`owner`, `originalprice`, `quantity`, `symbol`,`total_price`) VALUES (%s, %s, %s, %s,%s)'
 			bought_quantity = int(request.form['buyquantity']) 
-			original_price = get_current_value(request.form['stock']) * bought_quantity
+			original_price = get_current_value(request.form['stock']) 
+			total_price = bought_quantity * original_price
 			owner = ACTIVE_COOKIES[session['token']]['user']
 			cursor = TOOLS["sql"].cursor()
-			cursor.execute(query, (owner, original_price, bought_quantity))
+			
+			#Get user data
+
+			user_data = "SELECT money FROM users WHERE username=%s"
+			cursor.execute(user_data, (owner,))
+			money = cursor.fetchall()[0][0]
+
+			if total_price > money:
+				return redirect("/stocks/{}".format(request.form['stock']))
+
+			money -= total_price
+			substract_money = '''UPDATE users
+			SET money=%s
+			WHERE username=%s'''
+
+			cursor.execute(substract_money, (money, owner))
+			cursor.execute(query, (owner, original_price, bought_quantity, request.form['stock'],total_price))
 			TOOLS["sql"].commit()
 
 
