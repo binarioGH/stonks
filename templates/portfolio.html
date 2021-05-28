@@ -46,7 +46,18 @@
     			<span class='teller'>Current value</span>
     			<span class='teller moneytell' >${{current_value}}</span>
     		</div>
+           
+                {% if earnings > 0 %}
+                    <div class='totalearned' style='color:rgb(105, 226, 51);'>+{{earnings}}</div>
+                {% elif earnings < 0 %}
+                    <div class='totalearned' style='color:rgb(255, 46, 25);'>{{earnings}}</div>
+                {% else %}
+                    <div class='totalearned' >0</div>
+                {% endif %}
+
     	</article>
+
+
     	<article id='portfolio'>
     		{% for item in portfolio %}
     			<div class='portfolioitem'>
@@ -57,12 +68,20 @@
     						<span class='stocksymbol'>{{item['symbol']}}</span>
     					</div>
     					<div>
-    						<span class="price">Bought price: {{item['boughtprice']}} QTY: {{item['quantity']}}</span>
+    						<span class="price">Bought price: <span class='bghtp'>{{item['boughtprice']}}</span> QTY: <span class="qty">{{item['quantity']}}</span></span>
     					</div>
     					
     				</div>
     				<div class='sell lined'>
-    				<form action='/sell' method="post">
+                        {% if item['earnings'] > 0 %}
+                            <span class='earnedd' style='color:rgb(105, 226, 51); font-family: "sans-serif";'>+{{item['earnings']}}</span>
+                        {% elif item['earnings'] < 0 %}
+                            <span class='earnedd' style='color:rgb(255, 46, 25); font-family: "sans-serif"'>{{item['earnings']}}</span>
+                        {% else %}
+                            <span class='earnedd' style='font-family: "sans-serif"'>0</span>
+                        {% endif %}
+                    
+    				<form action='/sell' method="post" class="lined">
                    		 <input type="number" class="sellshare" name='sellshare' placeholder="0"/>
                    		 <input style='display:none' name='stock' value="{{item['symbol']}}">
                    		 <button class="moveshare" >Sell Share!</button>
@@ -81,5 +100,6 @@
      		window.location.href = window.location.origin + '/stocks/' + symbol
      	}
      </script>
+     <script type="text/javascript" src='/static/js/update_stocks.js'></script>
 </body>
 </html>

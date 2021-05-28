@@ -1,4 +1,4 @@
-#-*-coding: utf-8-*-
+ #-*-coding: utf-8-*-
 
 #Import libraries
 from flask import Flask, render_template, request, session, abort, url_for, redirect
@@ -107,6 +107,7 @@ def handleMessage(msg): #Handle web sockets
 					return_value['data'] = {}
 				else:
 					return_value["data"] = value
+					return_value['symbol'] = args[0]
 
 			elif command == "name": #Send iformation of a symbol
 				try:
@@ -239,11 +240,14 @@ def portfolio():
 
 
 		cursor = TOOLS["sql"].cursor()
-		query = "SELECT symbol, originalprice, quantity, purchase_date FROM transactions WHERE owner=%s"
+		query = "SELECT symbol, originalprice, quantity, purchase_date, total_price FROM transactions WHERE owner=%s"
 		user = ACTIVE_COOKIES[session['token']]['user']
 
 		cursor.execute(query, (user,))
 		portfolio_items = cursor.fetchall()
+		total_investment = 0
+		earnings = 0
+		final_current_value = 0
 		for item in portfolio_items:
 			data = {}
 			data['symbol'] = item[0]
@@ -251,11 +255,21 @@ def portfolio():
 			data['quantity'] = item[2]
 			data['date'] = item[3]
 			data['name'] = get_name(data['symbol'])
-
+			total_current_value = get_current_value(data['symbol']) * data['quantity']
+			data['earnings'] =  float("{:.2f}".format(total_current_value - item[4]))
 			portfolio.append(data)
 
+			#Add to totals
+			total_investment += item[4]
+			final_current_value += total_current_value
+			earnings += data['earnings']
 
-		return render_template("portfolio.html", total_invested=10, current_value=100, portfolio = portfolio)
+		total_investment = float("{:.2f}".format(total_investment))
+		final_current_value = float("{:.2f}".format(final_current_value))
+		earnings = float("{:.2f}".format(earnings))
+
+
+		return render_template("portfolio.html", total_invested=total_investment, current_value=final_current_value, earnings=earnings, portfolio = portfolio)
 
 	else:
 		return redirect(url_for("landing"))
