@@ -218,12 +218,51 @@ def buy():
 @app.route("/sell", methods=["POST"])
 def sell():
 	if auth(session):
-		if not request.form['buyquantity'].isnumeric():
-			pass
+		if request.form['sellshare'].isnumeric():
+			quantity = int(request.form['sellshare'])
+			if quantity > 0:
+				stock = request.form['stock']
+				date = request.form['date']
+				cursor = TOOLS["sql"].cursor()
+				name = ACTIVE_COOKIES[session['token']]['user']
+				query = "UPDATE transactions SET quantity=%s, total_price=%s WHERE owner=%s AND purchase_date=%s AND symbol=%s"
+				moneney_query = "UPDATE users SET money=%s WHERE username=%s"
+				fetch_query = "SELECT quantity, total_price, originalprice FROM transactions WHERE owner=%s AND purchase_date=%s AND symbol=%s"
+				current_money = "SELECT money FROM users WHERE username=%s"
+
+				cursor.execute(current_money, (name,))
+				old_money = cursor.fetchall()[0][0]
+
+				cursor.execute(fetch_query, (name ,date, stock))
+				old_qty, old_price, original_price = cursor.fetchall()[0]
+
+				new_qty = old_qty - quantity
+				new_total_price = (original_price * quantity) 
+				earned = (get_current_value(stock) * quantity) 
+				new_total_money = old_money + earned
+
+				print("New total acc: {}".format(new_total_money))
+				print("New qty: {}".format(new_qty))
+				print("New total invest: {}".format(new_total_price))
+				print("Earned: {}".format(earned))
+
+				if new_qty < 0:
+					return redirect("/portfolio")
+				elif new_qty == 0:
+					query = "DELETE FROM transactions WHERE owner=%s AND purchase_date=%s AND symbol=%s"
+					cursor.execute(query, (name, date, stock))
+
+				else:
+					cursor.execute(query, (new_qty, new_total_price, name, date, stock))
+
+				cursor.execute(moneney_query, (new_total_money, name))				
+
+				TOOLS["sql"].commit()
+
 		else:
 			pass
 		
-		return redirect("/stocks/{}".format(request.form['stock']))
+		return redirect("/portfolio")
 
 
 

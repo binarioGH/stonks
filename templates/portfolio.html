@@ -62,7 +62,7 @@
     		{% for item in portfolio %}
     			<div class='portfolioitem'>
     				{%set symbol = item['symbol']%}
-    				<div class="stockinformation lined" style='cursor:pointer' onclick='goto("{{symbol}}")'>
+    				<div class="stockinformation lined" style='cursor:pointer' onclick='goto("{{symbol|string}}")'>
     					<div>
     						<span class='stockname'>{{item['name']}}</span>
     						<span class='stocksymbol'>{{item['symbol']}}</span>
@@ -82,8 +82,9 @@
                         {% endif %}
                     
     				<form action='/sell' method="post" class="lined">
-                   		 <input type="number" class="sellshare" name='sellshare' placeholder="0"/>
+                   		 <input type="number" class="sellshare" name='sellshare' placeholder="0" max="{{item['quantity']}}" min='0'/>
                    		 <input style='display:none' name='stock' value="{{item['symbol']}}">
+                         <input style='display:none' name='date' value="{{item['date']}}">
                    		 <button class="moveshare" >Sell Share!</button>
                 	</form>
     			</div>
@@ -96,10 +97,11 @@
      <script type="text/javascript" src="/static/js/nav.js"></script>
      <script type="text/javascript">
      	function goto(symbol){
+            symbol = symbol['symbol']
      		console.log(symbol); 
      		window.location.href = window.location.origin + '/stocks/' + symbol
      	}
      </script>
-     <script type="text/javascript" src='/static/js/update_stocks.js'></script>
+     <script type="text/javascript" src='/static/js/update_stocks.j  s'></script>
 </body>
 </html>
