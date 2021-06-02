@@ -235,11 +235,13 @@ def sell():
 
 				cursor.execute(fetch_query, (name ,date, stock))
 				old_qty, old_price, original_price = cursor.fetchall()[0]
-
+				a_current_value = get_current_value(stock)
 				new_qty = old_qty - quantity
 				new_total_price = (original_price * quantity) 
-				earned = (get_current_value(stock) * quantity) 
+				earned = (a_current_value * quantity) 
 				new_total_money = old_money + earned
+
+				earned_two = earned - (original_price * quantity)
 
 				print("New total acc: {}".format(new_total_money))
 				print("New qty: {}".format(new_qty))
@@ -255,7 +257,19 @@ def sell():
 				else:
 					cursor.execute(query, (new_qty, new_total_price, name, date, stock))
 
-				cursor.execute(moneney_query, (new_total_money, name))				
+				cursor.execute(moneney_query, (new_total_money, name))							
+				update_history = "INSERT INTO history(`user`, `symbol`, `quantity`, `sell_price`, `earnings`, `bought_price`) VALUES (%s, %s, %s, %s, %s, %s) "
+
+				cursor.execute(update_history, (name, stock, quantity, a_current_value, earned_two, original_price))
+
+				update_trans = ""
+				if earned_two > 0:
+					update_trans = "UPDATE users SET positive_transactions=positive_transactions+1 WHERE username=%s"
+				elif earned_two < 0 :
+					update_trans = "UPDATE users SET negative_transactions=negative_transactions+1 WHERE username=%s"
+				
+				if len(update_trans):
+					cursor.execute(update_query, (name, ))
 
 				TOOLS["sql"].commit()
 
@@ -270,6 +284,22 @@ def sell():
 		return redirect(url_for("landing"))
 
 
+
+@app.route("/history")
+def history():
+	if auth(session):
+
+		#history = [['GME', 1, 10, 1000, 10]]
+
+		cursor = TOOLS['sql'].cursor()
+		username = ACTIVE_COOKIES[session['token']]['user']
+		query = 'SELECT symbol, bought_price, quantity, earnings, sell_price FROM history WHERE user=%s'
+		cursor.execute(query, (username,))
+		history = cursor.fetchall()
+		return render_template("history.html", history=history)
+
+	else:
+		return redirect("/")
 
 @app.route("/portfolio")
 def portfolio():

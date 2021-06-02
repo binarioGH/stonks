@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/lost.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/account.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/history.css">
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Account information</title>
+    <title>History</title>
 
 </head>
 
@@ -43,9 +43,42 @@
     </header>
     <section>
         <article>
-            <h2>Username: {{user}}</h2>
-            <h2>Money: {{money}}</h2>
-            <input type="button" class='logout' name="logout" value="Log Out" onclick='window.location.href = "/logout"'>
+        	<h1 class='title'>Transaction history: </h1>
+        	<div id='history'>
+        		{% for transaction in history %}
+        			<div class='passedtrans'>
+        				<div class="transcont">
+						<div class="lined transinf">
+        					<span>{{transaction[0]}}</span>
+        					<span class='jump'></span>
+        					<p style="color:gray">
+        						<span>Bought Price: {{transaction[1]}}</span>
+        						<span>Qty: {{transaction[2]}}</span>
+        					</p>
+        				</div>
+        				<div class='lined profited'>
+        					{% if transaction[3] > 0 %}
+        					<span>
+        						Profit: <span style="color:rgb(105, 226, 51)">+{{transaction[3]}}</span>
+        					</span>
+        					{% elif transaction[3] < 0 %}
+        					<span>
+        						Profit: <span style="color:rgb(255, 46, 25)">{{transaction[3]}}</span>
+        					</span>
+        					{% else %}
+        					<span>
+        						Profit: <span style="color:white">0.0</span>
+        					</span>
+        					{% endif %}
+        					<span class="jump"></span>
+        					<p style="color:gray">
+        						<span>Sell price: {{transaction[4]}}</span>
+        					</p>
+        				</div>		
+        				</div>
+        			</div>
+        		{% endfor %}
+        	</div>
         </article>
     </section>
     <script type="text/javascript" src="/static/js/nav.js"></script>
