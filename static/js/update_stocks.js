@@ -55,8 +55,8 @@ setInterval(function(){
 			total_earned.innerText = "+" + checksum_total_earched.toFixed(2);
 		}
 		else if(checksum_total_earched < 0){
-			total_earned.style.color = "";
-			total_earned = checksum_total_earched.toFixed(2);
+			total_earned.style.color = "color:rgb(255, 46, 25)";
+			total_earned.innerText = checksum_total_earched.toFixed(2);
 		}
 		else{
 			total_earned.style.color = "white";

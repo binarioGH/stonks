@@ -74,11 +74,11 @@
     				</div>
     				<div class='sell lined'>
                         {% if item['earnings'] > 0 %}
-                            <span class='earnedd' style='color:rgb(105, 226, 51); font-family: "sans-serif";'>+{{item['earnings']}}</span>
+                            <span class='earnedd' style='color:rgb(105, 226, 51); font-family: sans-serif;'>+{{item['earnings']}}</span>
                         {% elif item['earnings'] < 0 %}
-                            <span class='earnedd' style='color:rgb(255, 46, 25); font-family: "sans-serif"'>{{item['earnings']}}</span>
+                            <span class='earnedd' style='color:rgb(255, 46, 25); font-family: sans-serif'>{{item['earnings']}}</span>
                         {% else %}
-                            <span class='earnedd' style='font-family: "sans-serif"'>0</span>
+                            <span class='earnedd' style='color: white;font-family: sans-serif'>0.0</span>
                         {% endif %}
                     
     				<form action='/sell' method="post" class="lined">
@@ -102,6 +102,6 @@
      		window.location.href = window.location.origin + '/stocks/' + symbol
      	}
      </script>
-     <script type="text/javascript" src='/static/js/update_stocks.j  s'></script>
+     <script type="text/javascript" src='/static/js/update_stocks.js'></script>
 </body>
 </html>
