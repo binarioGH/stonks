@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html>
-
+{% block head %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/lost.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/watch.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/menu.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@600&display=swap" rel="stylesheet">
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Oops!!</title>
+    <title>STONKS!</title>
 
 </head>
 
-<body>
-    {%include "header.html"%}
-    <section>
-        <article>
-            <h1 id="losttext">404</h1>
-            <span class="jump"></span>
-            <h2>I think you got lost.</h2>
-        </article>
-    </section>
-    <script type="text/javascript" src="/static/js/nav.js"></script>
-</body>
-
-</html>
+{% endblock %}
